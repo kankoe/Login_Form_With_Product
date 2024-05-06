@@ -15,5 +15,5 @@ php artisan serve
 ```
 ## Pour tester l'API 
 ```bash
-http://localhost:préciser_le_port/products
+http://localhost:préciser_le_port/api/products
 ```
