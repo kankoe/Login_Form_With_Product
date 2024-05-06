@@ -18,6 +18,6 @@ Run `ng build` to build the project. The build artifacts will be stored in the `
 ```
 ## Pour se connecter en User
 ``` bash
-    username : user1
+    username : user1 
     password : azerty
 ```
