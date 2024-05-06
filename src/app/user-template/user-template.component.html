@@ -1,0 +1,16 @@
+<mat-toolbar color="primary">
+  <button mat-button *ngIf="authService.isAuthenticated" routerLink="/home">HOME</button>
+  <span style="flex: auto"></span>
+  <h1 style="flex: auto">Bienvenue sur GesProd</h1>
+  <button mat-button *ngIf="authService.isAuthenticated">
+    {{authService.username}}
+  </button>
+  <button *ngIf="authService.isAuthenticated" (click)="logout()"  mat-raised-button>Logout</button>
+
+</mat-toolbar>
+
+<mat-drawer-container>
+    <div style="min-height: 600px">
+      <router-outlet></router-outlet>
+    </div>
+</mat-drawer-container>
