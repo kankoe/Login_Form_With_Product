@@ -1,0 +1,51 @@
+<div class="container">
+  <mat-card class="register-form" [formGroup]="productFormGroup" >
+    <mat-card-header>
+      <h2>Product Register</h2>
+    </mat-card-header>
+    <mat-divider></mat-divider>
+    <div class="search">
+      <mat-card-content>
+        <mat-form-field appearance="outline" >
+          <mat-label>name</mat-label>
+          <input matInput formControlName="name">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>description</mat-label>
+          <input matInput formControlName="description">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>prix</mat-label>
+          <input matInput formControlName="price">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Quantité</mat-label>
+          <input matInput formControlName="quantity">
+        </mat-form-field>
+
+      </mat-card-content>
+    </div>
+    <mat-form-field appearance="outline" class="alignments" >
+      <mat-label>Categories</mat-label>
+      <mat-select formControlName="category_id">
+        <!--<mat-option *ngFor="let item of productsType| keyvalue">{{item.value}}</mat-option>-->
+        <mat-option value="1">1</mat-option>
+        <mat-option value="3">3</mat-option>
+        <mat-option value="5">5</mat-option>
+        <mat-option value="6">6</mat-option>
+        <mat-option value="9">9</mat-option>
+
+      </mat-select>
+    </mat-form-field>
+    <mat-card-actions align="end">
+      <button (click)="register()"  mat-raised-button color="primary">Login</button>
+    </mat-card-actions>
+
+
+
+  </mat-card>
+</div>
+

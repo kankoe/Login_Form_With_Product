@@ -1,0 +1,8 @@
+mat-form-field{
+  display: block;
+}
+.update-form{
+  width: 500px;
+  flex: auto;
+  margin: auto;
+}

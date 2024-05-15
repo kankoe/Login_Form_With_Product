@@ -4,7 +4,7 @@ import {MatButton} from "@angular/material/button";
 import {MatDrawer, MatDrawerContainer} from "@angular/material/sidenav";
 import {RouterLink, RouterOutlet} from "@angular/router";
 import {MatList, MatListItem} from "@angular/material/list";
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpClientModule} from "@angular/common/http";
 import {MatTable, MatTableDataSource} from "@angular/material/table";
 import {NgIf} from "@angular/common";
 import {AuthService} from "../services/auth.service";
@@ -22,7 +22,8 @@ import {AuthService} from "../services/auth.service";
     RouterLink,
     MatDrawer,
     MatTable,
-    NgIf
+    NgIf,
+    HttpClientModule,
   ],
   templateUrl: './user-template.component.html',
   styleUrl: './user-template.component.css'

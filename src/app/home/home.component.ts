@@ -1,22 +1,21 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import { Component, OnInit, ViewChild} from '@angular/core';
 import {MatCard, MatCardContent, MatCardTitle} from "@angular/material/card";
-import {MatDivider, MatDividerModule} from "@angular/material/divider";
-import {MatTable, MatTableDataSource, MatTableModule} from "@angular/material/table";
+import { MatDividerModule} from "@angular/material/divider";
+import { MatTableDataSource, MatTableModule} from "@angular/material/table";
 import {HttpClient, HttpClientModule} from "@angular/common/http";
 import {MatPaginator, MatPaginatorModule} from "@angular/material/paginator";
 import {MatSort, MatSortModule} from "@angular/material/sort";
-import {MatInput, MatInputModule} from "@angular/material/input";
-import {MatFormField, MatFormFieldModule} from "@angular/material/form-field";
-import {MatOption, MatSelect, MatSelectChange, MatSelectModule} from "@angular/material/select";
+import { MatInputModule} from "@angular/material/input";
+import { MatFormFieldModule} from "@angular/material/form-field";
+import { MatSelectModule} from "@angular/material/select";
 import {MatOptionModule} from "@angular/material/core";
-import {MatButton, MatButtonModule} from "@angular/material/button";
+import { MatButtonModule} from "@angular/material/button";
 import {MatDrawerContainer} from "@angular/material/sidenav";
 import {MatToolbar} from "@angular/material/toolbar";
 import {NgIf} from "@angular/common";
-import {RouterLink, RouterOutlet} from "@angular/router";
+import {Router, RouterLink, RouterOutlet} from "@angular/router";
 import {AuthService} from "../services/auth.service";
-// @ts-ignore
-import * as _ from 'lodash';
+import {Product} from "../model/products.model";
 
 @Component({
   selector: 'app-home',
@@ -40,36 +39,36 @@ import * as _ from 'lodash';
     NgIf,
     RouterLink,
     RouterOutlet,
+    HttpClientModule
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
 export class HomeComponent implements OnInit{
   public apiResponse = [];
-  public products : any;
+  public products !: Array<Product>;
   public dataSource: any;
-  public categorieResponses:any
+  public dataValue!:any
   public displayedColumns=['id','name','quantity','price',
-                                'created_at','category_id'];
+                                'created_at','category_id','modifier'];
 
   //lien component html dans le TypeScripte
   @ViewChild(MatPaginator) paginator! : MatPaginator;
 
   @ViewChild(MatSort) sort! : MatSort ;
-  constructor(private http:HttpClient,public authService : AuthService) {
+  constructor(private http:HttpClient,public authService : AuthService,
+              private router:Router
+             ) {
   }
   ngOnInit(): void {
-    this.products = [];
     this.http.get("http://127.0.0.1:8000/api/products").
     subscribe({
       next:data=>{
-        this.products=data;
-        this.apiResponse=this.products['data'].category_id;
-        console.log(this.apiResponse);
-        this.categorieResponses=data;
+        this.dataValue=data;
+        this.products=this.dataValue['data'];
        /* recupération de la requete dans l'objet datasource matché avec
         la vue pour le foreache */
-        this.dataSource=new MatTableDataSource(this.products['data']);
+        this.dataSource=new MatTableDataSource(this.products);
 
         console.log(this.dataSource);
         this.dataSource.paginator=this.paginator;
@@ -86,12 +85,13 @@ export class HomeComponent implements OnInit{
     this.dataSource.filter = value.trim().toLowerCase();
   }
 
-  onChange(event: MatSelectChange) {
-    // @ts-ignore
-    let filterData = this.apiResponse.filter(item => item.toLowerCase() === event.value.toLowerCase());
-    console.log(this.apiResponse);
-    this.dataSource=new MatTableDataSource(filterData);
-    //console.log(this.dataSource);
+
+  newProducts() {
+       this.router.navigateByUrl("/register")
+  }
+
+  updateProducts(product: Product) {
+    this.router.navigateByUrl(`/update/${product.id}/${product.name}/${product.quantity}/${product.price}/${product.description}/${product.category_id}`);
   }
 }
 
